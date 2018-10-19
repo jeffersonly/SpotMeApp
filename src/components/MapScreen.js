@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapView from 'react-native-maps';
+import { StyleSheet, View, Dimensions } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import SearchBox from './SearchBox';
+
+//Dark Map Styles not being applied for some reason, will look into it in the future
+import DarkMapStyles from '../MapStyle/DarkMapStyles.json';
 
 class MapScreen extends Component {
     //Need constructor to initialize state and regionChange,
@@ -23,8 +27,8 @@ class MapScreen extends Component {
             region: {
                 latitude: 37.3382082,
                 longitude: -121.8863286,
-                latitudeDelta: 0.1,
-                longitudeDelta: 0.1
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421
             },
         };
     }
@@ -34,14 +38,26 @@ class MapScreen extends Component {
     }
 
     //renders the map view
+    //renders markers in map view
     render() {
         return (
             <View style={styles.container}>
                 <MapView
                     style={styles.map}
+                    customMapStyle={DarkMapStyles}
                     region={this.state.region}
                     onRegionChange={this.onRegionChange}
+                > 
+                <MapView.Marker
+                    coordinate={{
+                        latitude: 37.339222,
+                        longitude: -121.880724,
+                    }}
+                    //Can later pull title and description from API when implemented
+                    title={'SJSU North Parking Garage'}
+                    description={'The best parking garage! Sample: Spots Filled: 277/450'}
                 />
+                </MapView>
             </View>
         );
     }
@@ -49,7 +65,7 @@ class MapScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      position: 'absolute',
+     position: 'absolute',
       top: 0,
       left: 0,
       bottom: 0,
