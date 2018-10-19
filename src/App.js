@@ -8,7 +8,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <MapView 
           style={styles.map}
-            region={{
+            initialRegion={{
             latitude: 37.3382082,
             longitude: -121.8863286,
             latitudeDelta: 0.1,
